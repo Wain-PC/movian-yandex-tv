@@ -67,7 +67,7 @@ plugin.addURI(PREFIX + ":tv", function (page) {
         response = makeRequest(page, 'https://tv.yandex.ru/213?grid=main'); //TODO: make region switchable
     var data = JSON.parse(re.exec(response)[1]).streamChannels;
     for (var i = 0; i < data.length; i++) {
-        if (~data[i].url.indexOf('.m3u8') || ~data[i].url.indexOf('.mpd')) {
+        if (~data[i].url.indexOf('.m3u8')) {
             page.appendItem(PREFIX + ':play:' + encodeURIComponent(data[i].url) + ':' + encodeURIComponent(data[i].title) + ':' + null, 'video', {
                 title: data[i].title
             });
