@@ -23,7 +23,7 @@ var plugin = this,
 
 plugin.createService(plugin.getDescriptor().title, PREFIX + ":start", "video", true, logo);
 
-plugin.addHTTPAuth("https:\/\/.*?yandex\.ru.*", function (authreq) {
+plugin.addHTTPAuth("https?:\/\/.*?yandex\.(ru|net|com).*", function (authreq) {
     //Yandex backend doesn't return the channels list without the `proper` User-Agent.
     authreq.setHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36');
 });
