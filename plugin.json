@@ -3,7 +3,7 @@
   "author": "Wain",
   "homepage": "http://github.com/Wain-PC",
   "title": "Yandex.TV",
-  "synopsis": "Yandex.TV",
+  "synopsis": "Yandex.TV - source for Russian TV channels, movies and TV series in high quality.",
   "version": "0.2",
   "file": "tv.js",
   "showtimeVersion": "4.9.389",
