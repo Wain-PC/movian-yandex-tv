@@ -52,7 +52,7 @@ function makeRequest(page, url, settings, parse) {
 
 
 plugin.addURI(PREFIX + ":start", function (page) {
-    setPageHeader(page, plugin.getDescriptor().synopsis);
+    setPageHeader(page, plugin.getDescriptor().title);
     page.appendItem(PREFIX + ':tv', 'directory', {
         title: 'ТВ'
     });
