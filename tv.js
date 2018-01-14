@@ -131,7 +131,8 @@ plugin.addURI(PREFIX + ":play:(.*):(.*):(.*)", function (page, url, title, icon)
         canonicalUrl: PREFIX + ':play:' + url + ':' + title,
         icon: decodeURIComponent(icon),
         sources: [{
-            url: decodeURIComponent(url)
+            url: decodeURIComponent(url),
+            mimetype: 'application/x-mpegURL' //Required to play some of the movies correctly, as Yandex returns incorrect Content-Type header on m3u8 playlists.
         }]
     });
 });
