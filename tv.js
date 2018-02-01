@@ -67,8 +67,8 @@ plugin.addURI(PREFIX + ":tv", function (page) {
         response = makeRequest(page, 'https://tv.yandex.ru/213?grid=main'); //TODO: make region switchable
     var data = JSON.parse(re.exec(response)[1]).streamChannels;
     for (var i = 0; i < data.length; i++) {
-        if (~data[i].url.indexOf('.m3u8')) {
-            page.appendItem(PREFIX + ':play:' + encodeURIComponent(data[i].url) + ':' + encodeURIComponent(data[i].title) + ':' + null, 'video', {
+        if (~data[i].embedUrl) {
+            page.appendItem(PREFIX + ':channel:' + encodeURIComponent(data[i].embedUrl) + ':' + encodeURIComponent(data[i].title), 'video', {
                 title: data[i].title
             });
         }
@@ -111,7 +111,6 @@ plugin.addURI(PREFIX + ":movies", function (page) {
 
 plugin.addURI(PREFIX + ":movies:(.*):(.*)", function (page, id, title) {
     setPageHeader(page, decodeURIComponent(title));
-    page.model.contents = 'grid';
     var response = makeRequest(page, 'https://www.yandex.ru/portal/api/data/1/kinopoisk?kp_group_ids=' + id, null, true);
     var data = response.block[0].data.groups[0].films, icon;
     for (var i = 0; i < data.length; i++) {
@@ -121,6 +120,14 @@ plugin.addURI(PREFIX + ":movies:(.*):(.*)", function (page, id, title) {
             icon: icon
         });
     }
+});
+
+
+plugin.addURI(PREFIX + ":channel:(.*):(.*)", function (page, url, title) {
+    var response = makeRequest(page, decodeURIComponent(url)),
+      contentUrl = /"content_url":"(.*?)"/.exec(response)[1],
+      thumbnail = 'https:' + /"thumbnail":"(.*?)"/.exec(response)[1];
+      page.redirect(PREFIX + ':play:' + encodeURIComponent(contentUrl) + ':' + title + ':' + encodeURIComponent(thumbnail));
 });
 
 
